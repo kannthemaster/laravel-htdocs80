@@ -1,0 +1,31 @@
+php artisan crud:generate Config --fields="name#string; value#string;" --view-path=backend --controller-namespace=Backend --route-group=backend --form-helper=html
+
+php artisan crud:generate Address --fields="house_no#string; address#string;  sub_district#string; district#string; province#string;  zipcode#string;" --view-path=backend --controller-namespace=Backend --route-group=backend --form-helper=html
+
+
+php artisan crud:generate Patient --fields="code#string; prefix#tinyint; name#string; surname#string; sex#tinyint; first_visit#date; id_card_number#string; birth_date#date; address_id#bigint; tel#string;  nationality#string; education#tinyint; marital_status#tinyint; status#tinyint; occupation#tinyint; other_occupation#string; organization#string; congenital๘disease#string; drug_allergy#string;  drug_allergy#string;" --view-path=backend --controller-namespace=Backend --route-group=backend --form-helper=html
+
+php artisan crud:generate Vistit --fields="patient_id#bigint; know_from#tinyint; send_from#string; other_from#string;  reason_sti#tinyint;  reason_sti_other#string;  reason_vct#tinyint; \
+reason_vct_other#string; sti_hostory#string; contraceptive_method#string; LMP#string; symptom#text; diagnosis#text; \
+term_syphilis#tinyint; disease_state#tinyint; treatment#text; disease_state_other#string; consultation#tinyint; hiv_sti_test#tinyint; hiv_sti_test_date#date; hiv_sti_test_resule#string; \
+touch_tracing#tinyint; touch_tracing_fail#tinyint;  provide_condom_site#string;  provide_condom_quantity#tinyint; provide_lubricant_quantity#tinyint;  appointment#date;  appointment_reason#string;" --view-path=backend --controller-namespace=Backend --route-group=backend --form-helper=html
+
+
+php artisan crud:generate ContactPerson --fields="date#date;  name#string; surname#string; sex#tinyint; sex_worker_ty#tinyint; husband_wife_ty#tinyint; regular_partner_ty#tinyint; temporary_partner_ty#tinyint; vagina_mt#tinyint; mouth_mt#tinyint; penis_mt#tinyint; anus_mt#tinyint; use_cd#tinyint; unuse_cd#tinyint; brea_slip_cd#tinyint; unbrea_slip_cd#tinyint;" --view-path=backend --controller-namespace=Backend --route-group=backend --form-helper=html
+
+php artisan crud:generate VisitContactPerson --fields="visit_id#bigint; CContactPerson_id#bigint;" --view-path=backend --controller-namespace=Backend --route-group=backend --form-helper=html
+
+php artisan crud:generate Lab --fields="patient_id#bigint; visit_id#bigint; report_by#bigint; approve_by#bigint; collected_date#date;  report_date#date; LN#string;" --view-path=backend --controller-namespace=Backend --route-group=backend --form-helper=html
+php artisan crud:generate LabItem --fields="lab_id#bigint; urethra#tinyint; begina#tinyint; cervix#tinyint; anus#tinyint; pharaynx#tinyint; other_specimen#string;  gram_stain#tinyint;  gncd#string; pmn#string;   wet_preparation#tinyint;  tv#string; pmcure_celln#string; koh#tinyint; yeast_hyphae#string;   bacterial_ulture#tinyint;  bc_result#string;   other_test#tinyint; other_result#string;" --view-path=backend --controller-namespace=Backend --route-group=backend --form-helper=html
+
+php artisan crud:generate LabSub --fields="lab_id#bigint; method#tinyint; specimen_from#tinyint; result#string;" --view-path=backend --controller-namespace=Backend --route-group=backend --form-helper=html
+
+php artisan crud:generate VisitMedicine --fields="visit_id#bigint; medicine#string; method#string; amount#string;" --view-path=backend --controller-namespace=Backend --route-group=backend --form-helper=html
+
+php artisan crud:generate Diagnosis --fields="visit_id#bigint;  disease#tinyint; other_disease#string;  term_syphilis#tinyint;" --view-path=backend --controller-namespace=Backend --route-group=backend --form-helper=html
+
+
+php artisan crud:generate Medicine --fields="medicine#string; dose#string; route#string; amount#string;" --view-path=backend --controller-namespace=Backend --route-group=backend --form-helper=html
+
+
+php artisan make:migration add_trush_tracks_to_visits_table --table=visits
