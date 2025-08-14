@@ -1,50 +1,43 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-php -v
-
-# ใช้ token (ถ้ามี) เพื่อดึงแพ็กเกจได้
+# --- Composer setup (รองรับ private quota) ---
 if [ -n "${GITHUB_TOKEN:-}" ]; then
   export COMPOSER_AUTH='{"github-oauth":{"github.com":"'"$GITHUB_TOKEN"'"}}'
 fi
-
 composer config -g github-protocols https
-
-# 👇 ตรึงแพลตฟอร์มให้ Composer แก้ dependencies ด้วย PHP 8.2.4
 composer config platform.php 8.2.4
 
-# ติดตั้ง deps; ถ้า install ยังติดข้อจำกัด ให้ลอง update (ครั้งเดียวใน sandbox)
+php -v
+composer --version
+
+# ติดตั้ง dependencies
 if ! composer install --no-interaction --prefer-dist --no-progress; then
   composer update --no-interaction --prefer-dist --no-progress
 fi
 
-# base env
-cp .env.example .env || true
-php artisan key:generate || true
+# --- Base .env (เฉยๆ เพื่อให้ artisan ใช้ได้ แต่ไม่บังคับต้องมี APP_KEY) ---
+[ -f .env ] || cp .env.example .env
 
-# ensure APP_KEY in .env.testing  (safe, no sed)
-APP_KEY=$(php artisan key:generate --show)
+# --- สร้าง APP_KEY แบบไม่พึ่ง artisan และเขียน .env.testing ใหม่ทั้งไฟล์ ---
+APP_KEY="$(php -r 'echo "base64:".base64_encode(random_bytes(32));')"
 
-if [ -f .env.testing ]; then
-  APP_KEY="$APP_KEY" php -r '
-    $f=".env.testing";
-    $k=getenv("APP_KEY");
-    $c=file_exists($f)?file_get_contents($f):"";
-    if (preg_match("/^APP_KEY=/m",$c)) {
-      $c=preg_replace("/^APP_KEY=.*/m","APP_KEY=".$k,$c);
-    } else {
-      $c=rtrim($c).PHP_EOL."APP_KEY=".$k.PHP_EOL;
-    }
-    file_put_contents($f,$c);
-  '
-else
-  printf "APP_ENV=testing\nAPP_DEBUG=true\nCACHE_DRIVER=array\nSESSION_DRIVER=array\nQUEUE_CONNECTION=sync\nMAIL_MAILER=array\nDB_CONNECTION=sqlite\nDB_DATABASE=database/database.sqlite\nAPP_KEY=%s\n" "$APP_KEY" > .env.testing
-fi
+cat > .env.testing <<EOF
+APP_ENV=testing
+APP_DEBUG=true
+CACHE_DRIVER=array
+SESSION_DRIVER=array
+QUEUE_CONNECTION=sync
+MAIL_MAILER=array
+DB_CONNECTION=sqlite
+DB_DATABASE=database/database.sqlite
+APP_KEY=$APP_KEY
+EOF
 
-
+# สร้าง SQLite DB (ให้ไฟล์สะอาดทุกครั้ง)
 mkdir -p database
 : > database/database.sqlite
 
-# enforce failures if tests fail
+# --- รัน migration + tests; ถ้าล้มให้สคริปต์ล้มตาม ---
 composer run pretest
 composer test
