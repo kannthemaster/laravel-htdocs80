@@ -6,3 +6,8 @@ Setup:
 - create database/database.sqlite; run `php artisan migrate:fresh --env=testing --force`
 Run:
 - Tests: `php artisan test --stop-on-failure`
+## Test workflow
+- Reset DB and run all tests:
+  - `composer run pretest && composer test`
+- One-off local run:
+  - `php artisan migrate:fresh --env=testing --force && php artisan test --stop-on-failure`
