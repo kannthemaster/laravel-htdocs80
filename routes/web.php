@@ -13,6 +13,7 @@ use App\Http\Controllers\PatientController;
 use App\Http\Controllers\LabExportController;
 use App\Http\Controllers\VisitFollowupController;
 use App\Http\Controllers\ReportController;
+use App\Http\Controllers\HealthController;
 
 Route::get('/report/dashboard', [ReportController::class, 'dashboard'])->name('report.dashboard');
 Route::get('/report/yearly-dashboard', [ReportController::class, 'yearlyDashboard'])->name('report.yearly');
@@ -30,6 +31,7 @@ Route::post('/check-id-card', [PatientController::class, 'checkIdCard'])->name('
 Route::delete('patient/{id}/delete-photo', [PatientController::class, 'deletePhoto'])->name('patient.deletePhoto');
 Route::get('/patient/photo/{id}', [PatientController::class, 'showPhoto'])->name('patient.showPhoto');
 Route::get('/read-card', [App\Http\Controllers\CardReaderController::class, 'readCard']);
+Route::get('/healthz', [HealthController::class, 'index']);
 
 
 // หน้านี้อยู่แล้ว
