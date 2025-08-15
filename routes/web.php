@@ -33,6 +33,10 @@ Route::get('/patient/photo/{id}', [PatientController::class, 'showPhoto'])->name
 Route::get('/read-card', [App\Http\Controllers\CardReaderController::class, 'readCard']);
 Route::get('/healthz', [HealthController::class, 'index']);
 
+Route::get('/modern', function () {
+    return view('dashboard', ['title' => 'Modern Dashboard']);
+});
+
 
 // หน้านี้อยู่แล้ว
 Route::get('visit/{visit}/edit', [VisitController::class, 'edit'])->name('visit.edit');
@@ -67,8 +71,6 @@ Route::get('/queues', function () {
 Route::get('/', function () {
     return view('welcome');
 });
-
-Route::view('/modern', 'modern');
 
 Auth::routes();
 

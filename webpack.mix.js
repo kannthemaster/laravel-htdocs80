@@ -11,11 +11,14 @@ const mix = require('laravel-mix');
  |
  */
 
+mix.setPublicPath('public');
+
+mix.postCss('resources/css/app.css', 'public/css', [
+  require('tailwindcss'),
+]);
+
 mix.js('resources/js/app.js', 'public/js')
-    .sass('resources/sass/app.scss', 'public/css')
-    .postCss('resources/css/modern.css', 'public/css', [
-        require('@tailwindcss/postcss'),
-    ])
+    .sass('resources/sass/app.scss', 'public/css/bootstrap.css')
     .copy(
         'node_modules/@fortawesome/fontawesome-free/webfonts',
         'public/webfonts'
