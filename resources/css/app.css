@@ -1,0 +1,20 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Example: small helpers */
+.tw-card {
+  @apply tw-bg-white tw-rounded-2xl tw-shadow-sm tw-p-4;
+}
+.tw-btn {
+  @apply tw-inline-flex tw-items-center tw-gap-2 tw-rounded-xl tw-px-4 tw-py-2 tw-font-medium tw-border tw-border-transparent;
+}
+.tw-btn-primary {
+  @apply tw-btn tw-bg-brand-600 tw-text-white hover:tw-bg-brand-700;
+}
+.tw-badge-ok {
+  @apply tw-inline-flex tw-items-center tw-gap-2 tw-text-sm tw-rounded-full tw-bg-emerald-100 tw-text-emerald-700 tw-px-3 tw-py-1;
+}
+.tw-badge-bad {
+  @apply tw-inline-flex tw-items-center tw-gap-2 tw-text-sm tw-rounded-full tw-bg-rose-100 tw-text-rose-700 tw-px-3 tw-py-1;
+}

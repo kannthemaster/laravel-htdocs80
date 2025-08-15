@@ -75,87 +75,86 @@
         var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
         $(document).ready(function(){
     
-          $( "#sub_district" ).select2({
-            ajax: { 
-              url: "{{route('sub-district.search')}}",
-              type: "post",
+          $("#sub_district").select2({
+            ajax: {
+              url: function (params) {
+                return "{{ url('api/sub-district/search') }}/" + encodeURIComponent(params.term || '');
+              },
+              type: "get",
               dataType: 'json',
               delay: 250,
               data: function (params) {
                 return {
-                  _token: CSRF_TOKEN,
-                  search: params.term , // search term
                   district: $("#district").val()
                 };
               },
               processResults: function (data) {
                 return {
-                    results:  $.map(data.data, function (item) {
-                        return {
-                            text: item.name,
-                            id: item.id
-                        }
-                    })
-                }
+                  results: $.map(data.data, function (item) {
+                    return {
+                      text: item.name,
+                      id: item.id
+                    };
+                  })
+                };
               },
               cache: true
             }
-    
+
           });
 
-          $( "#district" ).select2({
-            ajax: { 
-              url: "{{route('district.search')}}",
-              type: "post",
+          $("#district").select2({
+            ajax: {
+              url: function (params) {
+                return "{{ url('api/district/search') }}/" + encodeURIComponent(params.term || '');
+              },
+              type: "get",
               dataType: 'json',
               delay: 250,
               data: function (params) {
                 return {
-                  _token: CSRF_TOKEN,
-                  search: params.term, // search term
                   province: $("#province").val()
                 };
               },
               processResults: function (data) {
                 return {
-                    results:  $.map(data.data, function (item) {
-                        return {
-                            text: item.name,
-                            id: item.id
-                        }
-                    })
-                }
+                  results: $.map(data.data, function (item) {
+                    return {
+                      text: item.name,
+                      id: item.id
+                    };
+                  })
+                };
               },
               cache: true
             }
-    
+
           });
 
-          $( "#province" ).select2({
-            ajax: { 
-              url: "{{route('province.search')}}",
-              type: "post",
+          $("#province").select2({
+            ajax: {
+              url: function (params) {
+                return "{{ url('api/province/search') }}/" + encodeURIComponent(params.term || '');
+              },
+              type: "get",
               dataType: 'json',
               delay: 250,
               data: function (params) {
-                return {
-                  _token: CSRF_TOKEN,
-                  search: params.term // search term
-                };
+                return {};
               },
               processResults: function (data) {
                 return {
-                    results:  $.map(data.data, function (item) {
-                        return {
-                            text: item.name,
-                            id: item.id
-                        }
-                    })
-                }
+                  results: $.map(data.data, function (item) {
+                    return {
+                      text: item.name,
+                      id: item.id
+                    };
+                  })
+                };
               },
               cache: true
             }
-    
+
           });
           
           function getZipcode(){
