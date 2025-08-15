@@ -30,7 +30,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Libre+Barcode+128&family=Noto+Sans+SC:wght@100..900&family=Noto+Sans+Thai:wght@100..900&family=Sriracha&display=swap" rel="stylesheet">
     <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/bootstrap.css') }}" rel="stylesheet">
     <link href="{{ asset('css/main.css') }}" rel="stylesheet">
     <!-- <link href="/css/jquery.datetimepicker.min.css" rel="stylesheet"> -->
     <link href="/css/datepicker.css" rel="stylesheet">

@@ -11,3 +11,11 @@ Run:
   - `composer run pretest && composer test`
 - One-off local run:
   - `php artisan migrate:fresh --env=testing --force && php artisan test --stop-on-failure`
+
+## Frontend
+- Install deps: `npm install`
+- Build dev assets: `npm run dev`
+- Build production assets: `npm run prod`
+- Use the new Tailwind layout via `@extends('layouts.modern')`
+- Tailwind classes are prefixed with `tw-` to avoid Bootstrap conflicts
+- Ensure compiled CSS is available during deployment (commit builds or build on server)
